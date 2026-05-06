@@ -1,4 +1,4 @@
-# Contributing to {{PROJECT_NAME}}
+# Contributing to timer-doctor
 
 Thanks for your interest! Contributions of any size are welcome — bug
 reports, fixes, new features, doc improvements.
@@ -14,8 +14,19 @@ develop  →  release/<version>  →  main
 - Release stabilization happens on `release/<version>` branches cut from
   `develop`.
 
-See the [README's "Branching & releases"](README.md) section (or
-[`BLUEPRINT.md`](BLUEPRINT.md)) for the full versioning, tagging, and CI flow.
+See the [README's "Branching & releases"](README.md) section for the full
+versioning, tagging, and CI flow.
+
+## Adding a new audit check
+
+Each check is one function that takes a parsed timer (with paired service)
+and returns `[]Finding`. To add one:
+
+1. Drop a new function into `internal/audit/checks.go`.
+2. Wire it into `Run` in `internal/audit/audit.go`.
+3. Add a fixture under `testdata/` and a unit test that asserts the
+   finding fires (and doesn't fire on a clean fixture).
+4. Add a row to the checks table in `README.md`.
 
 ## Pull requests
 
@@ -47,7 +58,7 @@ A minimal reproducing example is gold.
 
 ## Asking questions / proposing ideas
 
-Use [Discussions](https://github.com/{{OWNER}}/{{PROJECT_NAME}}/discussions)
+Use [Discussions](https://github.com/HeytalePazguato/timer-doctor/discussions)
 for open-ended questions and ideas. Reserve issues for actionable bugs and
 concrete feature requests.
 

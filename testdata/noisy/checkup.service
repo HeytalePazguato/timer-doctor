@@ -1,0 +1,5 @@
+[Unit]
+Description=Companion service for the every-minute timer
+
+[Service]
+ExecStart=/usr/local/bin/checkup.sh

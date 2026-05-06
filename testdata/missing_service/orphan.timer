@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer with no paired service
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target

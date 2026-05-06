@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer with malformed OnCalendar
+
+[Timer]
+OnCalendar=*-*-* 99:99:99
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -2,11 +2,11 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in {{PROJECT_NAME}}, please report it
+If you discover a security vulnerability in timer-doctor, please report it
 responsibly.
 
 **Preferred channel:** open a private security advisory through GitHub:
-[Report a vulnerability](https://github.com/{{OWNER}}/{{PROJECT_NAME}}/security/advisories/new).
+[Report a vulnerability](https://github.com/HeytalePazguato/timer-doctor/security/advisories/new).
 
 **Do NOT** open a public GitHub issue for security vulnerabilities.
 
@@ -16,7 +16,23 @@ you prefer to remain anonymous).
 
 ## Scope
 
-<!-- TODO: describe what your project does and what's in/out of scope. -->
+timer-doctor is a read-only auditor for systemd `.timer` and `.service`
+unit files. It parses files on disk and never makes network calls or
+talks to D-Bus. The realistic security surface is parsing untrusted unit
+files (malformed input, path-traversal in `Unit=` references) and
+running `systemd-analyze` as a subprocess when present.
+
+In scope:
+
+- Crashes, infinite loops, or denial-of-service from a crafted unit file.
+- Path traversal or arbitrary file reads from a crafted `Unit=` value.
+- Command injection via the `systemd-analyze` invocation.
+
+Out of scope:
+
+- Vulnerabilities in unit files themselves (timer-doctor reports them; it
+  does not promise to find every misconfiguration).
+- The behavior of `systemd-analyze` itself (upstream systemd).
 
 ## Supported Versions
 

@@ -2,8 +2,8 @@ name: release
 
 # Stable release flow. Triggered when commits land on main (typically from a
 # release/* PR that bumped the VERSION file). Reads VERSION as the source of
-# truth, tags v<VERSION>, and runs the release tool to publish to all
-# configured channels.
+# truth, tags v<VERSION>, and runs goreleaser to publish to all configured
+# channels.
 #
 # Idempotent: if the tag already exists (i.e. main was pushed without a
 # VERSION bump), the workflow exits cleanly without retagging or republishing.
@@ -13,7 +13,7 @@ on:
 
 permissions:
   contents: write
-  # packages: write    # uncomment if pushing container images
+  packages: write
 
 concurrency:
   group: release-main
@@ -28,7 +28,18 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # TODO: set up your language toolchain.
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23.x"
+          cache: true
+
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Read VERSION
         id: ver
@@ -62,42 +73,12 @@ jobs:
           git tag "${{ steps.ver.outputs.tag }}"
           git push origin "${{ steps.ver.outputs.tag }}"
 
-      # TODO: run your release tool. Examples below — uncomment one and
-      # delete the others. Always pass cross-repo publish tokens (taps,
-      # buckets, fork forks) explicitly via env.
-      #
-      # ─── Go (goreleaser) ─────────────────────────────────────────────
-      # - uses: docker/setup-qemu-action@v3
-      # - uses: docker/setup-buildx-action@v3
-      # - uses: docker/login-action@v3
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-      # - if: steps.guard.outputs.exists == 'false'
-      #   uses: goreleaser/goreleaser-action@v6
-      #   with: { version: "~> v2", args: release --clean }
-      #   env:
-      #     GITHUB_TOKEN:              ${{ secrets.GITHUB_TOKEN }}
-      #     HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
-      #     SCOOP_GITHUB_TOKEN:        ${{ secrets.SCOOP_GITHUB_TOKEN }}
-      #
-      # ─── Node / npm ──────────────────────────────────────────────────
-      # - if: steps.guard.outputs.exists == 'false'
-      #   run: |
-      #     npm ci
-      #     npm run build
-      #     npm publish --provenance --access public
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #
-      # ─── Python / PyPI ───────────────────────────────────────────────
-      # - if: steps.guard.outputs.exists == 'false'
-      #   run: pipx run build && pipx run twine upload dist/*
-      #   env:
-      #     TWINE_USERNAME: __token__
-      #     TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-      #
-      # ─── Rust / cargo ────────────────────────────────────────────────
-      # - if: steps.guard.outputs.exists == 'false'
-      #   run: cargo publish --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      - if: steps.guard.outputs.exists == 'false'
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          version: "~> v2"
+          args: release --clean
+        env:
+          GITHUB_TOKEN:              ${{ secrets.GITHUB_TOKEN }}
+          HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+          SCOOP_GITHUB_TOKEN:        ${{ secrets.SCOOP_GITHUB_TOKEN }}

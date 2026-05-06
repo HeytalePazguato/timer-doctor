@@ -1,0 +1,9 @@
+[Unit]
+Description=No matching timer
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/stranded.sh
+
+[Install]
+WantedBy=timers.target

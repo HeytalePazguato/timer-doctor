@@ -1,12 +1,12 @@
-title: "{{PROJECT_NAME}}"
-description: "{{DESCRIPTION}}"
+title: "timer-doctor"
+description: "Audit your systemd timers"
 theme: jekyll-theme-cayman
-url: "https://{{OWNER}}.github.io"
-baseurl: "/{{PROJECT_NAME}}"
+url: "https://HeytalePazguato.github.io"
+baseurl: "/timer-doctor"
 
 show_downloads: true
 github:
-  repository_url: "https://github.com/{{OWNER}}/{{PROJECT_NAME}}"
+  repository_url: "https://github.com/HeytalePazguato/timer-doctor"
 
 plugins:
   - jekyll-relative-links
