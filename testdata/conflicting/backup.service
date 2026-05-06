@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup A
+
+[Service]
+Type=oneshot
+ExecStart=/var/backups/run.sh

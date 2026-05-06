@@ -1,23 +1,31 @@
 ---
 layout: default
-title: "{{PROJECT_NAME}}"
-description: "{{DESCRIPTION}}"
+title: "timer-doctor"
+description: "Audit your systemd timers"
 ---
 
-# {{PROJECT_NAME}}
+# timer-doctor
 
-{{DESCRIPTION}}
+A CLI that audits systemd `.timer` units and prints a human-readable
+report. Sibling to [cron-doctor](https://github.com/HeytalePazguato/cron-doctor).
+Single static Go binary, no daemon, no D-Bus, no network.
 
-[View on GitHub](https://github.com/{{OWNER}}/{{PROJECT_NAME}}){: .btn }
-[Download latest release](https://github.com/{{OWNER}}/{{PROJECT_NAME}}/releases/latest){: .btn }
+[View on GitHub](https://github.com/HeytalePazguato/timer-doctor){: .btn }
+[Download latest release](https://github.com/HeytalePazguato/timer-doctor/releases/latest){: .btn }
 
 ## Install
 
-<!-- TODO: add install instructions for your project -->
+```sh
+brew install HeytalePazguato/tap/timer-doctor
+go install github.com/HeytalePazguato/timer-doctor/cmd/timer-doctor@latest
+```
+
+See the [README](https://github.com/HeytalePazguato/timer-doctor#install) for
+all install methods (Scoop, Docker/GHCR, install.sh, manual binaries).
 
 ## Links
 
-- [Issues](https://github.com/{{OWNER}}/{{PROJECT_NAME}}/issues)
-- [Discussions](https://github.com/{{OWNER}}/{{PROJECT_NAME}}/discussions)
-- [Releases](https://github.com/{{OWNER}}/{{PROJECT_NAME}}/releases)
-- [Security policy](https://github.com/{{OWNER}}/{{PROJECT_NAME}}/blob/main/SECURITY.md)
+- [Issues](https://github.com/HeytalePazguato/timer-doctor/issues)
+- [Discussions](https://github.com/HeytalePazguato/timer-doctor/discussions)
+- [Releases](https://github.com/HeytalePazguato/timer-doctor/releases)
+- [Security policy](https://github.com/HeytalePazguato/timer-doctor/blob/main/SECURITY.md)

@@ -1,0 +1,6 @@
+[Unit]
+Description=Has a paired timer
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/paired.sh

@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup A — fires at midnight
+
+[Timer]
+OnCalendar=*-*-* 00:00:00
+Persistent=true
+RandomizedDelaySec=0
+
+[Install]
+WantedBy=timers.target

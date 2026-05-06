@@ -1,0 +1,6 @@
+[Unit]
+Description=Companion service for broken timer
+
+[Service]
+Type=oneshot
+ExecStart=/bin/true

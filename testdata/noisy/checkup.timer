@@ -1,0 +1,8 @@
+[Unit]
+Description=Timer firing every minute with no flock guard
+
+[Timer]
+OnCalendar=*:*:00
+
+[Install]
+WantedBy=timers.target

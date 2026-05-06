@@ -1,0 +1,9 @@
+[Unit]
+Description=Nightly backup
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/backup.sh
+ProtectSystem=strict
+PrivateTmp=true
+NoNewPrivileges=true
