@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2026-05-09
+
+### Changed
+
+- Bumped GitHub Actions to versions running on Node.js 24:
+  `actions/checkout` v4 → v6 and `actions/setup-go` v5 → v6, clearing
+  the Node.js 20 deprecation warning ahead of GitHub's June 2026
+  cutoff.
+- Bumped CI/release action dependencies via Dependabot:
+  `goreleaser/goreleaser-action` 6 → 7, `docker/setup-qemu-action`
+  3 → 4, `docker/setup-buildx-action` 3 → 4, `actions/configure-pages`
+  5 → 6, and `actions/upload-pages-artifact` 3 → 5.
+- Enabled branch protection on `main` requiring the `lint-build-test`
+  matrix to pass before merging.
+
 ## [0.0.1] - 2026-05-05
 
 ### Added
